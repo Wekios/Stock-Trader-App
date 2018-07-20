@@ -5,15 +5,15 @@ import Stocks from "./components/stocks/Stocks.vue";
 import StocksDetail from "./components/stocks/StocksDetail.vue";
 
 export const routes = [
-  { path: "", component: Home },
-  { path: "/portfolio",
+  { path: "/", component: Home },
+  {
+    path: "/portfolio",
     component: Portfolio,
-    children: [
-        { path: "", component: PortfolioDetail }]
+    children: [{ path: "", component: PortfolioDetail }]
   },
-  { path: "/stocks",
+  {
+    path: "/stocks",
     component: Stocks,
-    children: [
-        { path: "", component: StocksDetail }]
+    children: [{ path: "", component: StocksDetail }]
   }
 ];

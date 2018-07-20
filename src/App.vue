@@ -1,36 +1,49 @@
 <template>
-    <div class="container">
+  <div class="container">
 
-        <div class="row">
+    <div class="row">
 
-            <div class="col-xs-12 col-md-12 ">
+      <div class="col-xs-12 col-md-12 ">
 
-                <h1>The Stock Trader App</h1>
+        <h1>The Stock Trader App</h1>
 
-                <hr>
+        <hr>
 
-                <app-header></app-header>
+        <app-header></app-header>
 
-                <br>
+        <transition name="slide" mode="out-in">
+          <div class="debt-card text-black" v-if=" debt < 0">
+            <h5>Debt so far:
+              <span class="debt-counter">${{ debtCounter }}</span>
+            </h5>
+          </div>
+        </transition>
 
-                <transition name="slide" mode="out-in">
-                    <router-view></router-view>
-                </transition>
+        <transition name="slide" mode="out-in">
+          <router-view></router-view>
+        </transition>
 
-            </div>
-
-        </div>
+      </div>
 
     </div>
+
+  </div>
 </template>
 
 <script>
-import { axios } from "axios";
 import Header from "./components/Header.vue";
 
 export default {
   data() {
     return {};
+  },
+  computed: {
+    debt() {
+      return this.$store.state.funds;
+    },
+    debtCounter() {
+      return Math.abs(this.debt);
+    }
   },
   methods: {
     startNewDay() {
@@ -44,6 +57,16 @@ export default {
 </script>
 
 <style>
+.debt-card {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.4em 1em;
+}
+
+.debt-counter {
+  color: red;
+}
+
 .slide-leave-active {
   transition: opacity 0.3s ease;
   opacity: 0;

@@ -10,8 +10,8 @@
                         <span>(price: {{ bmw.price }}) </span>
                     </h5>
                     <div class="card-body">
-                        <input type="text" name="quantity" placeholder=" Quantity" />
-                        <input @click="buyStock(bmw.price)" type="submit" class="btn btn-success" value="Buy">
+                        <input v-model="bmwQuantity" type="number" placeholder="Quantity" min="0" />
+                        <input @click="buyBmwStock" type="submit" class="btn btn-success" value="Buy">
                     </div>
                 </div>
             </div>
@@ -22,12 +22,10 @@
                         Google
                         <span>(price: {{ google.price }})</span>
                     </h5>
-                    <form action="#" method="post">
-                        <div class="card-body">
-                            <input type="text" name="quantity" placeholder=" Quantity" />
-                            <input type="submit" class="btn btn-success" value="Buy">
-                        </div>
-                    </form>
+                    <div class="card-body">
+                        <input v-model="googleQuantity" type="number" placeholder="Quantity" min="0" />
+                        <input @click="buyGoogleStock" type="submit" class="btn btn-success" value="Buy">
+                    </div>
                 </div>
             </div>
 
@@ -39,14 +37,12 @@
                 <div class="card">
                     <h5 class="card-header">
                         Apple
-                        <span>(price: {{ apple }})</span>
+                        <span>(price: {{ apple.price }})</span>
                     </h5>
-                    <form action="#" method="post">
-                        <div class="card-body">
-                            <input type="text" name="quantity" placeholder=" Quantity" />
-                            <input type="submit" class="btn btn-success" value="Buy">
-                        </div>
-                    </form>
+                    <div class="card-body">
+                        <input v-model="appleQuantity" type="number" placeholder="Quantity" min="0" />
+                        <input @click="buyAppleStock" type="submit" class="btn btn-success" value="Buy">
+                    </div>
                 </div>
             </div>
 
@@ -54,14 +50,12 @@
                 <div class="card">
                     <h5 class="card-header">
                         Twitter
-                        <span>(price: {{ twitter }})</span>
+                        <span>(price: {{ twitter.price }})</span>
                     </h5>
-                    <form action="#" method="post">
-                        <div class="card-body">
-                            <input type="text" name="quantity" placeholder=" Quantity" />
-                            <input type="submit" class="btn btn-success" value="Buy">
-                        </div>
-                    </form>
+                    <div class="card-body">
+                        <input v-model="twitterQuantity" type="number" placeholder="Quantity" min="0" />
+                        <input @click="buyTwitterStock" type="submit" class="btn btn-success" value="Buy">
+                    </div>
                 </div>
             </div>
 
@@ -72,17 +66,51 @@
 
 <script>
 export default {
+  data() {
+    return {
+      bmwQuantity: null
+    };
+  },
   computed: {
     bmw() {
       return this.$store.state.companies.bmw;
     },
     google() {
       return this.$store.state.companies.google;
+    },
+    apple() {
+      return this.$store.state.companies.apple;
+    },
+    twitter() {
+      return this.$store.state.companies.twitter;
     }
   },
   methods: {
-    buyStock(val) {
-      this.$store.state.funds -= val;
+    buyBmwStock() {
+      this.$store.state.funds -=
+        this.$store.state.companies.bmw.price * this.bmwQuantity;
+      this.$store.state.companies.bmw.quantity += parseInt(this.bmwQuantity);
+    },
+    buyGoogleStock() {
+      this.$store.state.funds -=
+        this.$store.state.companies.google.price * this.googleQuantity;
+      this.$store.state.companies.google.quantity += parseInt(
+        this.googleQuantity
+      );
+    },
+    buyAppleStock() {
+      this.$store.state.funds -=
+        this.$store.state.companies.apple.price * this.appleQuantity;
+      this.$store.state.companies.apple.quantity += parseInt(
+        this.appleQuantity
+      );
+    },
+    buyTwitterStock() {
+      this.$store.state.funds -=
+        this.$store.state.companies.twitter.price * this.twitterQuantity;
+      this.$store.state.companies.twitter.quantity += parseInt(
+        this.twitterQuantity
+      );
     }
   }
 };
@@ -101,16 +129,3 @@ export default {
   justify-content: space-between;
 }
 </style>
-
-    // bmw() {
-    //   return randomize(this.$store.state.companies.bmw);
-    // },
-    // google() {
-    //   return randomize(this.$store.state.companies.google);
-    // },
-    // apple() {
-    //   return randomize(this.$store.state.companies.apple);
-    // },
-    // twitter() {
-    //   return randomize(this.$store.state.companies.twitter);
-    // }

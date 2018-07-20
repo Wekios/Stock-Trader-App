@@ -6,17 +6,12 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
   state: {
     startGame: false,
-    funds: 10000,
+    funds: 1000,
     companies: {
-      bmw: { price: 150, quantity: null },
-      google: { price: 200, quantity: null },
-      apple: { price: 180, quantity: null },
-      twitter: { price: 120, quantity: null }
-    }
-  },
-  getters: {
-    buyStocks: state => {
-      return state.funds * 1000;
+      bmw: { price: 150, quantity: 0 },
+      google: { price: 200, quantity: 0 },
+      apple: { price: 180, quantity: 0 },
+      twitter: { price: 120, quantity: 0 }
     }
   }
 });
